@@ -1,0 +1,24 @@
+{
+  "name": "bogart-blog",
+  "version": "0.0.1",
+  "description": "A blog created with bogart and couchdb",
+  "main": "app.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tuvokki/bogart-blog.git"
+  },
+  "keywords": [
+    "bogart",
+    "blog",
+    "couchdb"
+  ],
+  "author": "Wouter Roosendaal",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/tuvokki/bogart-blog/issues"
+  },
+  "homepage": "https://github.com/tuvokki/bogart-blog#readme"
+}
