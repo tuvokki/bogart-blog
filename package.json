@@ -23,6 +23,7 @@
   "homepage": "https://github.com/tuvokki/bogart-blog#readme",
   "dependencies": {
     "bogart": "^0.5.26",
-    "couchdb": "^0.3.8"
+    "couchdb": "^0.3.8",
+    "nano": "^6.1.3"
   }
 }
