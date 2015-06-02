@@ -66,7 +66,7 @@ router.get('/postsp', function(req) {
 
   readlist().then(function(data) {
     console.log(data);
-    return viewEngine.respond('posts.html', [])
+    return viewEngine.respond('posts.html', data)
   });
   console.log('render');
 });
