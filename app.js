@@ -12,10 +12,6 @@ router.get('/', function(req) {
   return viewEngine.respond('index.html', article);
 });
 
-// router.get('/:name', function(req) {
-//       return 'hello '+req.params.name;
-// });
-
 router.get('/posts/new', function(req) {
   return viewEngine.respond('new-post.html', {
     locals: {
@@ -30,41 +26,20 @@ router.post('/posts', function(req) {
 
   var articles = nano.db.use('articles');
 
-  articles.insert(post, function(err, body, header) {
-    if (err) {
-      console.log('[articles.insert] ', err.message);
-      return;
-    }
-    console.log('you have inserted the body: ', body)
-    console.log(body);
+  var insert_article = bogart.promisify(articles.insert);
+
+  return insert_article(post).then(function(data) {
+    console.log('you have inserted the body: ', data)
+    return bogart.redirect('/posts');
   });
-  return bogart.redirect('/posts');
 });
 
 router.get('/posts', function(req) {
   var articles = nano.db.use('articles');
-  var postlist = [];
-
-  articles.list(function(err, body) {
-    if (!err) {
-      body.rows.forEach(function(doc) {
-        // console.log(doc);
-        postlist.push(doc);
-        return
-      });
-      console.log('postlist', postlist);
-      return viewEngine.respond('posts.html', postlist)
-    }
-    return
-  });
-});
-
-router.get('/postsp', function(req) {
-  var articles = nano.db.use('articles');
 
   var readlist = bogart.promisify(articles.list);
 
-  readlist().then(function(data) {
+  return readlist().then(function(data) {
     console.log(data);
     return viewEngine.respond('posts.html', data)
   });
