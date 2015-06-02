@@ -41,7 +41,7 @@ router.get('/posts', function(req) {
 
   return readlist().then(function(data) {
     console.log(data);
-    return viewEngine.respond('posts.html', data)
+    return viewEngine.respond('posts.html', { locals: { postlist: data.rows} });
   });
   console.log('render');
 });
