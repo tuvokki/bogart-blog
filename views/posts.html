@@ -1,4 +1,8 @@
-<h1>A list of posts</h1>
-{{ #postlist }}
-  {{id}} - {{value}}</br>
-{{ /postlist }}
+<section class="articlelist">
+  <h1>{{ title }}</h1>
+  <p>
+    {{ #postlist }}
+      {{id}} - {{value}}</br>
+    {{ /postlist }}
+  </p>
+</section>

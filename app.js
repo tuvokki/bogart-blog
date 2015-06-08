@@ -15,7 +15,7 @@ router.get('/', function(req) {
 router.get('/posts/new', function(req) {
   return viewEngine.respond('new-post.html', {
     locals: {
-      title: 'New Post'
+      title: 'add some content'
     }
   })
 });
@@ -41,7 +41,12 @@ router.get('/posts', function(req) {
 
   return readlist().then(function(data) {
     console.log(data);
-    return viewEngine.respond('posts.html', { locals: { postlist: data.rows} });
+    return viewEngine.respond('posts.html', {
+      locals: {
+        title: 'all posts',
+        postlist: data.rows
+      }
+    });
   });
   console.log('render');
 });
