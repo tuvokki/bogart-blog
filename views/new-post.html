@@ -1,0 +1,25 @@
+<section class="articlenew">
+  <h1>{{ title }}</h1>
+  <p>
+    <form method='post' action='/posts' class='articleform'>
+      <fieldset>
+        <legend>New Post</legend>
+
+        <div>
+          <label for='title'>Title</label>
+          <input name='title' />
+        </div>
+
+        <div>
+          <label for='body'>Body</label>
+          <textarea name='body' rows='30' columns='125'></textarea>
+        </div>
+
+        <div class='buttons'>
+          <button>Save</button>
+          <a href="/">Cancel</a>
+        </div>
+      </fieldset>
+    </form>
+  </p>
+</section>
