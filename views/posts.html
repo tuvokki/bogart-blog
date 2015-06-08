@@ -2,7 +2,7 @@
   <h1>{{ title }}</h1>
   <p>
     {{ #postlist }}
-      {{id}} - {{value}}</br>
+      <a href="/posts/{{ id }}">{{value.title}}</a><br>
     {{ /postlist }}
   </p>
 </section>
