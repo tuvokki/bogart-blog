@@ -64,6 +64,10 @@ article p, section p {
 .articlelist {
 }
 
+.articlenew ul.sets li {
+  display: inline;
+}
+
 /* Reclaim a little space on smaller screen */
 @media (min-width: 640px) and (max-width: 700px) {
   article {
