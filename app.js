@@ -34,7 +34,6 @@ router.post('/posts', function(req) {
   var insert_article = bogart.promisify(articles.insert);
 
   return insert_article(post, slug).then(function(data) {
-    console.log('you have inserted the body: ', data)
     return bogart.redirect('/posts');
   });
 });
@@ -45,7 +44,6 @@ router.get('/posts', function(req) {
   var articlelist = bogart.promisify(articles.view);
 
   return articlelist('article_list', 'articleView').then(function(data) {
-    console.log(data);
     return viewEngine.respond('posts.html', {
       locals: {
         title: 'all posts',
@@ -53,7 +51,6 @@ router.get('/posts', function(req) {
       }
     });
   });
-  console.log('render');
 });
 
 router.get('/posts2/:id', function(req) {
