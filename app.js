@@ -73,31 +73,19 @@ router.get('/posts', function(req) {
   return articlelist('article_list', 'articleView').then(function(data) {
     return viewEngine.respond('posts.html', {
       locals: {
-        title: 'all posts',
+        pagetitle: 'all posts',
         postlist: data.rows
       }
     });
   });
 });
 
-router.get('/posts/:id', function(req) {
-  console.log('id', req.params.id);
-
-  // data = {
-  //   title: req.params.id,
-  //   body: 'This is the body ...'
-  // };
-  // return viewEngine.respond('post.html', {
-  //   locals: {
-  //     title: data.title,
-  //     body: data.body
-  //   }
-  // });
+router.get('/posts/:slug', function(req) {
   var articles = nano.db.use('articles');
 
   var articlelist = bogart.promisify(articles.get);
 
-  return articlelist(req.params.id).then(function(data) {
+  return articlelist(req.params.slug).then(function(data) {
     console.log(data);
     return viewEngine.respond('post.html', {
       locals: {
