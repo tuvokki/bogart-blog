@@ -6,6 +6,18 @@ var root = require("path").join(__dirname, "public");
 var router = bogart.router();
 var nano = require('nano')('https://couchdb-f0fd27.smileupps.com');
 
+// possible values of schmipsum sets
+var sets = ["shakespeare",
+  "jane_austen",
+  "lewis_carroll",
+  "patents",
+  "nixon_tapes",
+  "college_essays",
+  "mission_statements",
+  "beatrix_potter",
+  "frankenstein",
+  "bible"];
+
 router.get('/', function(req) { 
   var article = { locals: { title: "header title", body: "A body that consists of a lot of things." } };
 
@@ -13,11 +25,26 @@ router.get('/', function(req) {
 });
 
 router.get('/posts/new', function(req) {
-  return viewEngine.respond('new-post.html', {
-    locals: {
-      title: 'add some content'
-    }
-  })
+  //redirect to a random set
+  return bogart.redirect('/posts/new/' + sets[Math.floor(Math.random() * sets.length)]);
+});
+
+router.get('/posts/new/:name', function(req) {
+  var rp = require('request-promise');
+  return rp('http://www.schmipsum.com/ipsum/'+req.params.name+'/1000')
+    .then(function(response) {
+        responseObject = JSON.parse(response);
+
+        return viewEngine.respond('new-post.html', {
+        locals: {
+          pagetitle: 'add some content based on ' + req.params.name,
+          title: responseObject.ipsum.substring(0,responseObject.ipsum.indexOf('\n')),
+          body: responseObject.ipsum.substring(responseObject.ipsum.indexOf('\n')),
+          allsets: sets
+        }
+      })
+    })
+    .catch(console.error);
 });
 
 router.post('/posts', function(req) {
@@ -33,7 +60,12 @@ router.post('/posts', function(req) {
 
   var insert_article = bogart.promisify(articles.insert);
 
+<<<<<<< HEAD
   return insert_article(post, slug).then(function(data) {
+=======
+  return insert_article(post).then(function(data) {
+    // console.log('you have inserted the body: ', data)
+>>>>>>> master
     return bogart.redirect('/posts');
   });
 });
@@ -59,8 +91,13 @@ router.get('/posts2/:id', function(req) {
 
   var articlelist = bogart.promisify(articles.view);
 
+<<<<<<< HEAD
   return articlelist('article_list', 'fullArticleView').then(function(data) {
     console.log(data);
+=======
+  return readlist().then(function(data) {
+    // console.log(data);
+>>>>>>> master
     return viewEngine.respond('posts.html', {
       locals: {
         title: 'all posts',
@@ -68,6 +105,7 @@ router.get('/posts2/:id', function(req) {
       }
     });
   });
+<<<<<<< HEAD
 });
 
 router.get('/posts/:id', function(req) {
@@ -97,6 +135,9 @@ router.get('/posts/:id', function(req) {
     });
   });
 
+=======
+  // console.log('render');
+>>>>>>> master
 });
 
 var app = bogart.app();

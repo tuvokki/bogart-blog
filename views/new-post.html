@@ -1,5 +1,5 @@
 <section class="articlenew">
-  <h1>{{ title }}</h1>
+  <h1>{{ pagetitle }}</h1>
   <p>
     <form method='post' action='/posts' class='articleform'>
       <fieldset>
@@ -7,12 +7,12 @@
 
         <div>
           <label for='title'>Title</label>
-          <input name='title' />
+          <input name='title' value="{{ title }}"></input>
         </div>
 
         <div>
           <label for='body'>Body</label>
-          <textarea name='body' rows='30' columns='125'></textarea>
+          <textarea name='body' rows='30' columns='125'>{{ body }}</textarea>
         </div>
 
         <div class='buttons'>
@@ -21,5 +21,11 @@
         </div>
       </fieldset>
     </form>
+    <hr>
+    <ul class="sets">Or create a new article based on:<br>
+      {{#allsets}}
+      <li><a href="/posts/new/{{.}}">{{.}}</a></li>
+      {{/allsets}}
+    </ul>
   </p>
 </section>
