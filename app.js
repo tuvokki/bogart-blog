@@ -60,12 +60,7 @@ router.post('/posts', function(req) {
 
   var insert_article = bogart.promisify(articles.insert);
 
-<<<<<<< HEAD
   return insert_article(post, slug).then(function(data) {
-=======
-  return insert_article(post).then(function(data) {
-    // console.log('you have inserted the body: ', data)
->>>>>>> master
     return bogart.redirect('/posts');
   });
 });
@@ -83,29 +78,6 @@ router.get('/posts', function(req) {
       }
     });
   });
-});
-
-router.get('/posts2/:id', function(req) {
-  console.log('id', req.params.id);
-  var articles = nano.db.use('articles');
-
-  var articlelist = bogart.promisify(articles.view);
-
-<<<<<<< HEAD
-  return articlelist('article_list', 'fullArticleView').then(function(data) {
-    console.log(data);
-=======
-  return readlist().then(function(data) {
-    // console.log(data);
->>>>>>> master
-    return viewEngine.respond('posts.html', {
-      locals: {
-        title: 'all posts',
-        postlist: data.rows
-      }
-    });
-  });
-<<<<<<< HEAD
 });
 
 router.get('/posts/:id', function(req) {
@@ -135,9 +107,6 @@ router.get('/posts/:id', function(req) {
     });
   });
 
-=======
-  // console.log('render');
->>>>>>> master
 });
 
 var app = bogart.app();
