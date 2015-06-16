@@ -1,10 +1,12 @@
 var bogart = require('bogart')
     ,path  = require('path');
 
+require('dotenv').load();
+
 var viewEngine = bogart.viewEngine('mustache', path.join(bogart.maindir(), 'views'));
 var root = require("path").join(__dirname, "public");
 var router = bogart.router();
-var nano = require('nano')('https://couchdb-f0fd27.smileupps.com');
+var nano = require('nano')(process.env.DB_HOST);
 
 // possible values of schmipsum sets
 var sets = ["shakespeare",
