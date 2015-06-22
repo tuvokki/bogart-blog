@@ -92,7 +92,8 @@ router.get('/posts/:slug', function(req) {
     return viewEngine.respond('post.html', {
       locals: {
         title: data.title,
-        body: data.body
+        body: data.body,
+        slug: req.params.slug
       }
     });
   });
