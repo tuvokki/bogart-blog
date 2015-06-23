@@ -85,10 +85,15 @@ router.get('/posts', function(req) {
 router.post('/posts/:slug/comment', function(req) {
   var comment = req.params;
   comment.type = 'comment';
-  comment.postslug = req.params.slug;
-  return bogart.json(comment);
-});
 
+  var articles = nano.db.use('articles');
+
+  var insert_comment = bogart.promisify(articles.insert);
+
+  return insert_comment(comment).then(function(data) {
+    return bogart.redirect('/posts/' + req.params.slug);
+  });
+});
 
 router.get('/posts/:slug', function(req) {
   var articles = nano.db.use('articles');
