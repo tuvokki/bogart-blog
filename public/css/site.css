@@ -68,6 +68,27 @@ article p, section p {
   display: inline;
 }
 
+.commentlist {
+  width: 60%;
+  min-height: 0;
+  border: 1px solid #ddd;
+  padding: 10px;
+}
+
+.commentlist .count {
+  border-bottom: 2px dotted #ddd;
+  margin-bottom: 4px;
+}
+
+.commentlist .name {
+  display: block;
+  border: 1px solid #aaa;
+}
+
+.commentlist .comment {
+  display: block;
+  padding-left: 10px;
+}
 
 #comment_form input, #comment_form textarea {
   border: 4px solid rgba(0,0,0,0.1);

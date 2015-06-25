@@ -82,8 +82,41 @@ router.get('/posts', function(req) {
   });
 });
 
+router.get('/test', function (req) {
+  var db = nano.db.use('articles');
+  var articles = bogart.promisify(db.view);
+  return articles('article_list', 'commentView', {key: ['edgar-hoover-had-a-good-lawyer']}).then(function(data) {
+    return bogart.json({result: data.rows});
+  });
+});
+
+router.get('/test/:slug', function (req) {
+  var db = nano.db.use('articles');
+  var articles = bogart.promisify(db.view);
+  return articles('article_list', 'commentView', {key: [req.params.slug]}).then(function(data) {
+    locals = {
+      comments: []
+    };
+    data.rows.forEach(function(doc){
+      // console.log('doc', doc);
+      if (doc.id == req.params.slug) {
+        //this is the post we want to see
+        locals.title = doc.value.title;
+        locals.body = doc.value.body;
+      } else {
+        locals.comments.push(doc.value);
+      }
+    });
+    console.log('locals', locals);
+    return viewEngine.respond('post-with-comments.html', {
+      locals: locals
+    });
+  });
+});
+
 router.post('/posts/:slug/comment', function(req) {
   var comment = req.params;
+  delete comment.submit;
   comment.type = 'comment';
 
   var articles = nano.db.use('articles');
@@ -117,5 +150,6 @@ var app = bogart.app();
 app.use(bogart.batteries({ secret: 'xGljGo7f4g/a1QveU8VRxhZP5Hwi2YWelejBq5h4ynM'})); // A batteries included JSGI stack including streaming request body parsing, session, flash, and much more.
 app.use(bogart.middleware.directory(root));
 app.use(router); // Our router
-
+console.log('Loading ... ');
 app.start(9981);
+console.log('done.\n');

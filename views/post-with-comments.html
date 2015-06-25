@@ -1,0 +1,36 @@
+<article role="main">
+  <h1>{{ title }}</h1>
+  <p>
+  {{ body }}
+  </p>
+</article>
+
+<section class="commentlist">
+  <div class='count'>{{ comments.length }} comments</div>
+  {{ #comments }}
+    <span class='name'>{{ name }} sais:</span><br>
+    <span class='comment'>{{ comment }}</span><br>
+  {{ /comments }}
+</section>
+
+<section>
+  <form method="post" action="/posts/{{ slug }}/comment" class="articleform">
+    <div id="comment_form">
+      <div>
+        <input type="text" name="name" id="name" value="" placeholder="Name">
+      </div>
+      <div>
+        <input type="email" name="email" id="email" value="" placeholder="Email">
+      </div>
+      <div>
+        <input type="url" name="website" id="website" value="" placeholder="Website URL">
+      </div>
+      <div>
+        <textarea rows="10" name="comment" id="comment" placeholder="Comment"></textarea>
+      </div>
+      <div>
+        <input type="submit" name="submit" value="Add Comment">
+      </div>
+    </div>
+  </form>
+</section>
