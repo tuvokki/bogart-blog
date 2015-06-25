@@ -100,7 +100,8 @@ router.get('/posts/:slug', function(req) {
 });
 
 var app = bogart.app();
-app.use(bogart.batteries({ secret: 'xGljGo7f4g/a1QveU8VRxhZP5Hwi2YWelejBq5h4ynM'})); // A batteries included JSGI stack including streaming request body parsing, session, flash, and much more.
+// A batteries included JSGI stack including streaming request body parsing, session, flash, and much more.
+app.use(bogart.batteries({ secret: process.env.BOGART_SECRET}));
 app.use(bogart.middleware.directory(root));
 app.use(router); // Our router
 
